@@ -1,3 +1,10 @@
 Manifest-Version: 1.0
 Main-Class: main
+Class-Path: gson-2.8.2.jar guava-19.0.jar testng-7.1.0.jar javax.inject-
+ 1.jar snakeyaml-1.21.jar aopalliance-1.0.jar jcommander-1.72.jar opente
+ st4j-1.1.1.jar bcprov-jdk16-1.46.jar guice-4.1.0-no_aop.jar commons-log
+ ging-1.2.jar junit-jupiter-5.4.2.jar protobuf-java-3.11.4.jar apiguardi
+ an-api-1.0.0.jar junit-jupiter-api-5.4.2.jar junit-jupiter-engine-5.4.2
+ .jar junit-jupiter-params-5.4.2.jar junit-platform-engine-1.4.2.jar mys
+ ql-connector-java-8.0.21.jar junit-platform-commons-1.4.2.jar
 
