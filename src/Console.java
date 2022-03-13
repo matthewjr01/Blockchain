@@ -15,10 +15,11 @@ public class Console extends Thread {
                     switch (Input){
                         case "END":
                             System.out.println("ENDING NODE");
-                            ProcessBuilder pb = new ProcessBuilder("pkill -9 java");
-                            pb.redirectErrorStream(true);
-                            Process p = pb.start();
+                            Process p = Runtime.getRuntime().exec(new String[]{"bash","-c","pkill -9 java"});
                             return;
+                        case "UPDATE":
+                            System.out.println(Settings.RED+ "UPDATING AND REBOOTING!!!" + Settings.RESET);
+                            Process p1 = Runtime.getRuntime().exec(new String[]{"bash","-c","pkill -9 java; git pull; java -jar Blockchain.jar"});
                     }
                 }
             }catch (Exception ex){
