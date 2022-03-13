@@ -10,7 +10,7 @@ public class Console extends Thread {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
                 Input = bufferedReader.readLine();
                 if(Input.matches("")){
-                    
+
                 }else {
                     switch (Input){
                         case "END":
@@ -18,6 +18,7 @@ public class Console extends Thread {
                             ProcessBuilder pb = new ProcessBuilder("pkill -9 java");
                             pb.redirectErrorStream(true);
                             Process p = pb.start();
+                            return;
                     }
                 }
             }catch (Exception ex){

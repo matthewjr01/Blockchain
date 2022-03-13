@@ -35,7 +35,7 @@ public class Clients extends Thread implements Serializable{
             generateKeyPair();
             new Notification("Made Client for: "+ socket.getInetAddress(), 4);
 
-            objectOutputStream.writeObject("111Test");
+            objectOutputStream.writeObject(publicKey);
             objectOutputStream.flush();
 
 
