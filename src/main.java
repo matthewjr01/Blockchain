@@ -1,7 +1,7 @@
 public class main {
 
     public static void main(String[] args) {
-        new Notification("VERSION:"+ Networking.Version(), 1);
+        new Notification(Settings.RED+ "{VERSION}:"+Settings.RESET+ Networking.Version(), 1);
         Thread Network_Client = new Thread(Networking::Network_Client);
         Thread Network_MGR = new Thread(Networking::Network_ClientMSG);
 
