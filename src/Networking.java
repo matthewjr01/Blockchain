@@ -26,7 +26,7 @@ public class Networking implements Serializable {
                             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
                             new Notification("NETWORK CLIENT CONNECTION OPEN!", 1);
                             Clients clients = new Clients(socket);
-
+                            clients.start();
                             Network_Clients.add(clients);
 
                         }
