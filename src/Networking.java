@@ -55,5 +55,9 @@ public class Networking implements Serializable {
         }
     }
 
-
+    public static String Version(){
+        String V = StringUtil.applySha512(Clients.class.toGenericString()+ Console.class.toGenericString()+main.class.toGenericString()+Networking.class.toString()+Settings.class.toString()+StringUtil.class);
+        System.out.println("Version: "+ V);
+        return V;
+    }
 }
