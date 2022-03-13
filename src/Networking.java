@@ -22,12 +22,12 @@ public class Networking implements Serializable {
                     try {
                         while (true) {
                             Socket socket = serverSocket.accept();
-                            ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-                            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
                             new Notification("NETWORK CLIENT CONNECTION OPEN!", 1);
                             Clients clients = new Clients(socket);
                             clients.start();
+                            new Notification("GOT CONNECTION FROM: "+ socket.getInetAddress(), 4);
                             Network_Clients.add(clients);
+
 
                         }
 

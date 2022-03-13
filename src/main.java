@@ -4,7 +4,9 @@ public class main {
         Thread Network_Client = new Thread(Networking::Network_Client);
         Thread Network_MGR = new Thread(Networking::Network_ClientMSG);
 
+        Thread con = new Thread(Console::c);
 
+        con.start();
         Networking.Network_Threads.add(Network_Client);
 
 

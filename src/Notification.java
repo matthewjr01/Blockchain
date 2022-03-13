@@ -11,15 +11,17 @@ public class Notification {
 
     private static void Notify(String Msg, int Level){
         logs.add(Msg);
-        switch (Level){
-            case 1:
-                System.out.println(Settings.PURPLE + "ID#"+logs.size()+  Settings.RESET + " " +Settings.BLUE + "{NOTIFICATION}" + " "+ Msg + Settings.RESET + "\n");
-            case 2:
-                System.out.println(Settings.PURPLE + "ID#"+logs.size()+  Settings.RESET + " " +Settings.YELLOW + "{WARNING}" + " "+ Msg + Settings.RESET + "\n");
-            case 3:
-                System.out.println(Settings.PURPLE + "ID#"+logs.size()+  Settings.RESET + " " +Settings.RED +"{ERROR}" + " "+ Msg + Settings.RESET + "\n");
-            case 4:
-                System.out.println(Settings.PURPLE + "ID#"+logs.size()+  Settings.RESET + " " +Settings.GREEN + "{SUCCESS}" + " "+ Msg + Settings.RESET + "\n");
+        if(Level == 1){
+            System.out.println(Settings.PURPLE + "ID#"+logs.size()+  Settings.RESET + " " +Settings.BLUE + "{NOTIFICATION}" + " "+ Msg + Settings.RESET + "\n");
+        }
+        if(Level == 2){
+            System.out.println(Settings.PURPLE + "ID#"+logs.size()+  Settings.RESET + " " +Settings.YELLOW + "{WARNING}" + " "+ Msg + Settings.RESET + "\n");
+        }
+        if(Level == 3) {
+            System.out.println(Settings.PURPLE + "ID#" + logs.size() + Settings.RESET + " " + Settings.RED + "{ERROR}" + " " + Msg + Settings.RESET + "\n");
+            if (Level == 4) {
+                System.out.println(Settings.PURPLE + "ID#" + logs.size() + Settings.RESET + " " + Settings.GREEN + "{SUCCESS}" + " " + Msg + Settings.RESET + "\n");
+            }
         }
         return;
     }

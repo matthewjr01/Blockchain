@@ -33,10 +33,7 @@ public class Clients extends Thread implements Serializable{
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectInputStream = new ObjectInputStream(socket.getInputStream());
             generateKeyPair();
-
-
-            Random r = new Random(100002203 * socket.getPort());
-            int x = r.nextInt(socket.getPort());
+            new Notification("Made Client for: "+ socket.getInetAddress(), 4);
 
             objectOutputStream.writeObject("111Test");
             objectOutputStream.flush();
