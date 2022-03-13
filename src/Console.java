@@ -19,7 +19,7 @@ public class Console extends Thread {
                             return;
                         case "UPDATE":
                             System.out.println(Settings.RED+ "UPDATING AND REBOOTING!!!" + Settings.RESET);
-                            Process p1 = Runtime.getRuntime().exec(new String[]{"bash","-c","pkill -9 java; git pull; java -jar Blockchain.jar"});
+                            Process p1 = Runtime.getRuntime().exec(new String[]{"bash","-c","git pull; pkill -9 java"});
                     }
                 }
             }catch (Exception ex){
