@@ -1,8 +1,10 @@
 import org.junit.jupiter.api.parallel.Execution;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.PublicKey;
@@ -33,15 +35,18 @@ public class Networking implements Serializable {
 
                         }
 
-                    } catch (Exception ex) {
+                    } catch (IOException ex) {
                         new Notification("NETWORK_CLIENT CLASS (SOCKET): " + ex, 3);
                         return;
                     }
                 }
-            } catch (Exception ex) {
-                new Notification("NETWORK_CLIENT CLASS: " + ex, 3);
+            }catch (BindException bindException){
+                END_PROG();
+            }catch (IOException ioException){
+                new Notification(ioException.toString(), 3);
                 return;
             }
+
         }
     }
 
@@ -59,5 +64,14 @@ public class Networking implements Serializable {
         String V = StringUtil.applySha512(Clients.class.toGenericString()+ Console.class.toGenericString()+main.class.toGenericString()+Networking.class.toString()+Settings.class.toString()+StringUtil.class);
         System.out.println("Version: "+ V);
         return V;
+    }
+
+    public static void END_PROG(){
+        try{
+                Process p = Runtime.getRuntime().exec(new String[]{"bash","-c","pkill -9 java; java -jar Blockchain.jar"});
+                new Notification("SOCKET IN USE REBOOTING PROGGRAM", 3);
+        }catch (Exception ex){
+            return;
+        }
     }
 }
