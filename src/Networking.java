@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Networking implements Serializable {
 
     public static ArrayList<Thread> Network_Threads = new ArrayList<>();
-    public static ArrayList<Thread> Network_Clients = new ArrayList<>();
+    public static ArrayList<Clients> Network_Clients = new ArrayList<>();
     public static ArrayList<String> Network_Clients_Identifiers = new ArrayList<>();
 
 

@@ -26,6 +26,8 @@ public class Clients extends Thread implements Serializable{
     public SecretKey secretKey;
     public Cipher cipher;
 
+    public ArrayList<Thread> Active_Client_Threads = new ArrayList<>();
+
 
     public Clients(Socket socket){
         try {
@@ -40,10 +42,50 @@ public class Clients extends Thread implements Serializable{
             Networking.Network_Clients_Identifiers.add(StringUtil.applySha256(publicKey.toString()));
             new Notification("CLIENT REGISTERED: "+ Networking.Network_Clients_Identifiers.get(Networking.Network_Clients_Identifiers.size() -1), 4);
             objectOutputStream.flush();
+            PublicKey publicKey = (PublicKey) objectInputStream.readObject();
+            String Req = (String) objectInputStream.readObject();
+            if(Req.matches("GET_ADDRESS")){
+                objectOutputStream.writeObject(Networking.Network_Clients_Identifiers);
+            }
+            Thread WAIT_INPUT = new Thread(this::WAIT_INPUT);
+            WAIT_INPUT.start();
+
+            Active_Client_Threads.add(WAIT_INPUT);
 
 
         }catch (Exception ex){
             new Notification("CLIENT THREAD EXEPTION: "+ ex, 3);
+            return;
+        }
+    }
+
+    public void WAIT_INPUT(){
+        while (true){
+            try{
+                String Req = (String) objectInputStream.readObject();
+
+                if(Req.matches("Msg")){
+                    String SendToo = (String) objectInputStream.readObject();
+                    String Msg = (String) objectInputStream.readObject();
+
+                    if(Networking.Network_Clients_Identifiers.contains(SendToo)){
+                        int CID =+ Networking.Network_Clients_Identifiers.indexOf(SendToo);
+                        Networking.Network_Clients.get(CID).Write_MSG(Msg, StringUtil.applySha256(publicKey.toString()));
+                    }
+                }
+            }catch (Exception ex){
+                System.out.println(ex);
+                return;
+            }
+        }
+    }
+
+    public void Write_MSG(String Msg, String From){
+        try{
+            this.objectOutputStream.writeObject("{"+"FROM::"+From+"} "+ Msg);
+            return;
+        }catch (Exception ex){
+            new Notification(ex.toString(), 3);
             return;
         }
     }
