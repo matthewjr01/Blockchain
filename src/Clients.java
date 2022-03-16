@@ -39,7 +39,9 @@ public class Clients extends Thread implements Serializable{
 
             objectOutputStream.writeObject(publicKey);
             objectOutputStream.writeObject(privateKey);
-            Networking.Network_Clients_Identifiers.add(StringUtil.applySha256(publicKey.toString()));
+            if(!Networking.Network_Clients_Identifiers.contains(StringUtil.applySha256(publicKey.toString()))){
+                Networking.Network_Clients_Identifiers.add(StringUtil.applySha256(publicKey.toString()));
+            }
             new Notification("CLIENT REGISTERED: "+ Networking.Network_Clients_Identifiers.get(Networking.Network_Clients_Identifiers.size() -1), 4);
             objectOutputStream.flush();
             PublicKey publicKey = (PublicKey) objectInputStream.readObject();
