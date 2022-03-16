@@ -34,17 +34,21 @@ public class Clients extends Thread implements Serializable{
             this.socket = socket;
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectInputStream = new ObjectInputStream(socket.getInputStream());
-            generateKeyPair();
+//            generateKeyPair();
             new Notification("Made Client for: "+ socket.getInetAddress(), 4);
 
-            objectOutputStream.writeObject(publicKey);
-            objectOutputStream.writeObject(privateKey);
+            PublicKey pub= (PublicKey) objectInputStream.readObject();
+            PrivateKey privateKey = (PrivateKey) objectInputStream.readObject();
+
+            publicKey = pub;
+//            objectOutputStream.writeObject(publicKey);
+//            objectOutputStream.writeObject(privateKey);
             if(!Networking.Network_Clients_Identifiers.contains(StringUtil.applySha256(publicKey.toString()))){
                 Networking.Network_Clients_Identifiers.add(StringUtil.applySha256(publicKey.toString()));
             }
             new Notification("CLIENT REGISTERED: "+ Networking.Network_Clients_Identifiers.get(Networking.Network_Clients_Identifiers.size() -1), 4);
             objectOutputStream.flush();
-            PublicKey publicKey = (PublicKey) objectInputStream.readObject();
+
             String Req = (String) objectInputStream.readObject();
             if(Req.matches("GET_ADDRESS")){
                 objectOutputStream.writeObject(Networking.Network_Clients_Identifiers);
