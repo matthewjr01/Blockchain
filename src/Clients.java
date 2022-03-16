@@ -69,8 +69,7 @@ public class Clients extends Thread implements Serializable{
                     String Msg = (String) objectInputStream.readObject();
 
                     if(Networking.Network_Clients_Identifiers.contains(SendToo)){
-                        int CID =+ Networking.Network_Clients_Identifiers.indexOf(SendToo);
-                        Networking.Network_Clients.get(CID).Write_MSG(Msg, StringUtil.applySha256(publicKey.toString()));
+                        Networking.Network_Clients.get(FIND_CLIENT(StringUtil.applySha256(publicKey.toString()))).Write_MSG(Msg, StringUtil.applySha256(publicKey.toString()));
                     }
                 }
             }catch (Exception ex){
@@ -78,6 +77,19 @@ public class Clients extends Thread implements Serializable{
                 return;
             }
         }
+    }
+
+    public int FIND_CLIENT(String FID){
+        try{
+            for(Clients client: Networking.Network_Clients){
+                if(StringUtil.applySha256(publicKey.toString()).matches(FID)){
+                    return Networking.Network_Clients.indexOf(client);
+                }
+            }
+        }catch (Exception ex){
+            new Notification(ex.toString(), 3);
+        }
+        return -1;
     }
 
     public void Write_MSG(String Msg, String From){
