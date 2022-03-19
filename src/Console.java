@@ -28,6 +28,8 @@ public class Console extends Thread {
                                     System.out.println(Settings.GREEN+ StringUtil.applySha512(Integer.toString(x))+ Settings.RESET + "     FOUND!!");
                                 }
                             }
+                            new Test_Mgr();
+
                     }
                 }
             }catch (Exception ex){
