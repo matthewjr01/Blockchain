@@ -31,6 +31,7 @@ public class Clients extends Thread implements Serializable{
 
     public Clients(Socket socket){
         try {
+            Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
             this.socket = socket;
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectInputStream = new ObjectInputStream(socket.getInputStream());
