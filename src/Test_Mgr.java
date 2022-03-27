@@ -21,6 +21,7 @@ public class Test_Mgr {
                 Test_Wallets.add(TEST_wallet);
                 System.out.println("MADE NEW WALLET: "+ TEST_wallet.publicKey.toString());
             }
+
             for(int x = 0; x<= r.nextInt(3900); x++){
                 TEST_blockchain = new Blockchain();
                 Test_Chains.add(TEST_blockchain);

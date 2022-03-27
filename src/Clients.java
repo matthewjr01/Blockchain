@@ -27,7 +27,7 @@ public class Clients extends Thread implements Serializable{
     public Cipher cipher;
 
     public ArrayList<Thread> Active_Client_Threads = new ArrayList<>();
-
+    public static ArrayList<String> ALLOWED_CCM = new ArrayList<>();
 
     public Clients(Socket socket){
         try {
@@ -41,8 +41,6 @@ public class Clients extends Thread implements Serializable{
             PrivateKey privateKey = (PrivateKey) objectInputStream.readObject();
 
             publicKey = pub;
-//            objectOutputStream.writeObject(publicKey);
-//            objectOutputStream.writeObject(privateKey);
             if(!Networking.Network_Clients_Identifiers.contains(StringUtil.applySha256(publicKey.toString()))){
                 Networking.Network_Clients_Identifiers.add(StringUtil.applySha256(publicKey.toString()));
             }
@@ -52,6 +50,14 @@ public class Clients extends Thread implements Serializable{
             String Req = (String) objectInputStream.readObject();
             if(Req.matches("GET_ADDRESS")){
                 objectOutputStream.writeObject(Networking.Network_Clients_Identifiers);
+            }
+            if(Req.matches("CCM_NEW")){
+                String CCM_IENTI = (String) objectInputStream.readObject();
+                if(ALLOWED_CCM.contains(CCM_IENTI)){
+                    objectOutputStream.writeObject(Settings.GREEN+ "ALLOWED!!" + Settings.RESET);
+                }else {
+                    objectOutputStream.writeObject(Settings.RED + "DENIED" + Settings.RESET);
+                }
             }
             Thread WAIT_INPUT = new Thread(this::WAIT_INPUT);
             WAIT_INPUT.start();
